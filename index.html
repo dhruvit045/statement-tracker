@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credit Debit Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div id="login-screen" class="screen active auth-screen">
+      <div class="auth-layout">
+        <div class="auth-hero auth-hero--login">
+          <span class="eyebrow">Welcome back</span>
+          <h1>Login to your Family Tracker</h1>
+          <p>Access your monthly credit and debit records with your secure username and password.</p>
+        </div>
+        <div class="card login-card auth-card">
+          <h1>Sign In</h1>
+          <div id="authMessage" class="auth-message">Please login with username and password.</div>
+          <form id="loginForm" class="auth-form">
+            <label>Username</label>
+            <input id="loginUsername" type="text" placeholder="Enter username" required />
+            <label>Password</label>
+            <input id="loginPassword" type="password" placeholder="Enter password" required />
+            <div class="login-types">
+              <label><input type="radio" name="loginType" value="me" checked /> Me</label>
+              <label><input type="radio" name="loginType" value="parent" /> Parent</label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" id="loginBtn">Login</button>
+            </div>
+          </form>
+          <p class="auth-switch">New user? <button type="button" id="showRegisterBtn">Register here</button></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="register-screen" class="screen auth-screen">
+      <div class="auth-layout">
+        <div class="auth-hero auth-hero--register">
+          <span class="eyebrow">Create account</span>
+          <h1>Register with trust</h1>
+          <p>Set up a secure username and password so your family records remain private.</p>
+        </div>
+        <div class="card login-card auth-card">
+          <h1>Register</h1>
+          <div id="registerMessage" class="auth-message">Create a secure account.</div>
+          <form id="registerForm" class="auth-form">
+            <label>Username</label>
+            <input id="registerUsername" type="text" placeholder="Choose username" required />
+            <label>Password</label>
+            <input id="registerPassword" type="password" placeholder="Choose password" required />
+            <label>Confirm Password</label>
+            <input id="registerConfirm" type="password" placeholder="Confirm password" required />
+            <div class="login-types">
+              <label><input type="radio" name="registerType" value="me" checked /> Me</label>
+              <label><input type="radio" name="registerType" value="parent" /> Parent</label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" id="registerBtn">Register</button>
+            </div>
+          </form>
+          <p class="auth-switch">Already registered? <button type="button" id="showLoginBtn">Login here</button></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="dashboard-screen" class="screen">
+      <header class="topbar">
+        <h1>Monthly Statement Tracker</h1>
+        <div class="topbar-actions">
+          <span id="loginTypeLabel"></span>
+          <button id="logoutBtn" class="secondary">Logout</button>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="summary-card card">
+          <div class="summary-header">
+            <div>
+              <h2 id="statementTitle">Current Month</h2>
+              <p id="monthMessage">Select a month to view its totals.</p>
+            </div>
+            <button id="downloadPdfBtn">Download Statement PDF</button>
+          </div>
+
+          <div class="month-controls">
+            <label for="monthSelect">Choose month:</label>
+            <select id="monthSelect"></select>
+          </div>
+
+          <div class="totals-grid">
+            <div class="total-card income-card">
+              <span>Credit : </span>
+              <strong id="totalIncome">₹0</strong>
+            </div>
+            <div class="total-card expense-card">
+              <span>Debit : </span>
+              <strong id="totalExpense">₹0</strong>
+            </div>
+            <div class="total-card balance-card">
+              <span>Balance : </span>
+              <strong id="totalBalance">₹0</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="action-grid">
+          <div id="formCard" class="card form-card">
+            <h2>Add / Edit Record</h2>
+            <p id="formNotice" class="form-notice">Add or edit your records here.</p>
+            <form id="recordForm">
+              <input type="hidden" id="recordId" />
+              <label>Date</label>
+              <input type="date" id="recordDate" required />
+              <label>Type</label>
+              <select id="recordType">
+                <option value="income">Credit</option>
+                <option value="expense">Debit</option>
+              </select>
+              <label>Person / Name</label>
+              <input type="text" id="recordPerson" placeholder="e.g.name of person" required />
+              <label>Amount (₹)</label>
+              <input type="number" id="recordAmount" min="1" required />
+              <label>Category</label>
+              <input type="text" id="recordCategory" placeholder="e.g. Loan, Food, Rent, Family" required />
+              <label>Notes</label>
+              <textarea id="recordNotes" placeholder="Any additional details about this record..."></textarea>
+              <div class="form-actions">
+                <button type="submit">Save Record</button>
+                <button type="button" id="resetFormBtn" class="secondary">Reset</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card history-card">
+            <h2>All Months Statement</h2>
+            <div class="months-summary" id="monthsSummary"></div>
+          </div>
+        </section>
+
+        <section class="records-card card">
+          <div class="records-header">
+            <h2>Record List</h2>
+            <span id="recordCount">0 records</span>
+          </div>
+          <div id="recordList" class="record-list"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+</html>
